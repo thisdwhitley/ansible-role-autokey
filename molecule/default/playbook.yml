@@ -1,0 +1,24 @@
+---
+- name: Converge
+  hosts: all
+  pre_tasks:
+  - name: create test users
+    become: true
+    user:
+      name: '{{ item }}'
+      state: present
+      home: '/home/{{ item }}'
+      createhome: true
+    with_items:
+      - test_usr1
+      - test_usr2
+      - test_usr3
+  - name: install git
+    package:
+      name: git
+      state: present
+  roles:
+    - role: ansible-role-autokey
+      users:
+        - username: test_usr1
+          repo: https://github.com/wadeallen/autokey.git

@@ -1,0 +1,42 @@
+---
+# this will be installed via remote package which will set up a repo for updates
+
+# the rpm package is here: http://get.opera.com/ftp/pub/opera/desktop/{{ version }}/linux/opera-stable_{{ version }}_amd64.rpm
+# - name: do these tasks for RedHat-y systems
+#   block:
+#     - name: install|rpm| install the package from the internet
+#       yum:
+#         name: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+#         state: present
+#   when: ansible_os_family == "RedHat"
+
+# the deb package is here: http://get.opera.com/ftp/pub/opera/desktop/{{ version }}/linux/opera-stable_{{ version }}_amd64.deb
+# - name: do these tasks for Ubuntu systems
+#   block:
+#     - name: install|deb| install the https method driver for apt
+#       become: true
+#       apt:
+#         name: apt-transport-https
+#         state: present
+#         update_cache: true
+#     - name: install|deb| add the apt key
+#       become: true
+#       apt_key:
+#         url: https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=index&search=0xB9559992C4619AE7BF3BDBE1D69DB56333E1F169
+#         state: present
+#     - name: install|deb| add the apt repository
+#       become: true
+#       apt_repository:
+#         repo: deb http://ppa.launchpad.net/sporkwitch/autokey/ubuntu bionic main
+#         state: present
+#   when: ansible_os_family == "Debian"
+
+- name: install| install requirements and package from repo
+  become: true
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - dbus-python
+    - python3-pydbus
+    - autokey-gtk

@@ -1,0 +1,20 @@
+---
+# pull down a repo of files for autokey
+
+- name: config| create config directories for {{ user.username }}
+  become: true
+  file:
+    path: "~{{ user.username }}/.config/autokey/data"
+    state: directory
+    owner: "{{ user.username }}"
+    group: "{{ user.username }}"
+    mode: 'u=rwx,go=r'
+  when: user.username is defined
+
+- name: config| git clone the repository for {{ user.username }}
+  git:
+    repo: "{{ user.repo }}"
+    dest: "~{{ user.username }}.config/autokey/data/{{ user.username }}"
+    separate_git_dir: "~{{ user.username }}.config/autokey/data.{{ user.username }}.git"
+    version: "master"
+  when: user.username is defined
