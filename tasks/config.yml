@@ -14,7 +14,7 @@
 - name: config| git clone the repository for {{ user.username }}
   git:
     repo: "{{ user.repo }}"
-    dest: "~{{ user.username }}.config/autokey/data/{{ user.username }}"
-    separate_git_dir: "~{{ user.username }}.config/autokey/data.{{ user.username }}.git"
+    dest: "~/{{ user.username }}/.config/autokey/data/{{ user.username }}"
+    separate_git_dir: "~/{{ user.username }}/.config/autokey/data.{{ user.username }}.git"
     version: "master"
   when: user.username is defined
