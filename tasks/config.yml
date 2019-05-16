@@ -4,7 +4,7 @@
 - name: config| create config directories for {{ user.username }}
   become: true
   file:
-    path: "~{{ user.username }}/.config/autokey/data"
+    path: "~/{{ user.username }}/.config/autokey/data"
     state: directory
     owner: "{{ user.username }}"
     group: "{{ user.username }}"
