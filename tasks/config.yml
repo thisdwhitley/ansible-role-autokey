@@ -18,3 +18,13 @@
     separate_git_dir: "~{{ user.username }}/.config/autokey/data.{{ user.username }}.git"
     version: "master"
   when: user.username is defined
+
+- name: config| reset permissions for ~{{ user.username }}/.config/autokey
+  become: true
+  file:
+    path: "~{{ user.username }}/.config/autokey"
+    state: directory
+    recurse: yes
+    owner: "{{ user.username }}"
+    group: "{{ user.username }}"
+  when: user.username is defined
