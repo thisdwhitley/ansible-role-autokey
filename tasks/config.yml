@@ -8,7 +8,7 @@
     state: directory
     owner: "{{ user.username }}"
     group: "{{ user.username }}"
-    mode: 'u=rwx,go=r'
+    mode: 'ug=rwx,o=rx'
   when: user.username is defined
 
 - name: config| git clone the repository for {{ user.username }}
@@ -27,4 +27,5 @@
     recurse: yes
     owner: "{{ user.username }}"
     group: "{{ user.username }}"
+    mode: 'ug=rwx,o=rx'
   when: user.username is defined
