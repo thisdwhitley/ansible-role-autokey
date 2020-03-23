@@ -37,7 +37,6 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - dbus-python
     - python3-pydbus
     - gtksourceview3
     - autokey-gtk
